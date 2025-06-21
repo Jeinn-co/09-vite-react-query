@@ -1,22 +1,27 @@
-import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import { useUsers } from '../hooks/useUsers';
 
 export const UserList = () => {
-  const { data, isLoading, isError, error } = useUsers();
+  const { data: users, isLoading, isError, error } = useUsers();
 
-  if (isLoading) return <p>載入使用者清單中...</p>;
-  if (isError) return <p style={{ color: 'red' }}>錯誤：{error.message}</p>;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
-    <div style={{ marginTop: 32 }}>
-      <h2>使用者清單</h2>
+    <div>
       <ul>
-        {data.map(user => (
+        {users?.map((user) => (
           <li key={user.id}>
-            {user.name} ({user.email})
+            <Link to={`/user/${user.id}`}>{user.name}</Link>
           </li>
         ))}
       </ul>
+      <Outlet />
     </div>
   );
 };
