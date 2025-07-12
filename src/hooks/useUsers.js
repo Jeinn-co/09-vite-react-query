@@ -11,6 +11,6 @@ export const useUsers = () => {
     queryKey: ['users'],
     queryFn: fetchUsers,
     staleTime: 1000 * 4, // 預設為 0 毫秒
-    cacheTime: 1000 * 60 * 5 // 預設為 5 分鐘（300,000 毫秒）
+    gcTime: 1000 * 60 * 5 // 預設為 5 分鐘（300,000 毫秒）
   });
 };
